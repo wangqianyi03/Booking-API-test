@@ -1,0 +1,6 @@
+{
+  "empty_user": {"username": "", "password": "password123"},
+  "empty_password": {"username": "admin", "password": ""},
+  "wrong_password": {"username": "admin", "password": "wrong-password"},
+  "unknown_user": {"username": "not-exist", "password": "password123"}
+}

@@ -1,0 +1,6 @@
+# 本机 Docker 环境（restful-booker 映射到 3001 端口）
+# 账号密码不写在这里，放到 .env 的 AUTH_USERNAME / AUTH_PASSWORD
+env_name: local
+base_url: http://localhost:3001
+timeout: 10
+log_level: INFO

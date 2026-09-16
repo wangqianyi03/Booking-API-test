@@ -1,0 +1,35 @@
+{
+  "version": "0.2",
+  "language": "en",
+  "words": [
+    "additionalneeds",
+    "allure",
+    "asdict",
+    "autouse",
+    "bookingdates",
+    "bookingid",
+    "booker",
+    "checkin",
+    "checkout",
+    "conftest",
+    "dataclass",
+    "depositpaid",
+    "dotenv",
+    "firstname",
+    "getenv",
+    "herokuapp",
+    "jmeter",
+    "lastname",
+    "parametrize",
+    "pytest",
+    "restful",
+    "rstrip",
+    "totalprice"
+  ],
+  "ignorePaths": [
+    ".venv/**",
+    "reports/**",
+    "logs/**",
+    ".pytest_cache/**"
+  ]
+}
