@@ -1,0 +1,51 @@
+name: API Test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  pytest:
+    runs-on: ubuntu-latest
+    env:
+      TEST_ENV: local
+      BASE_URL: http://localhost:3001
+      AUTH_USERNAME: ${{ secrets.AUTH_USERNAME }}
+      AUTH_PASSWORD: ${{ secrets.AUTH_PASSWORD }}
+      LOG_LEVEL: INFO
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Start Restful Booker
+        run: docker run -d --name booker -p 3001:3001 mwinteringham/restfulbooker
+
+      - name: Wait until ping is ready
+        run: |
+          for i in $(seq 1 30); do
+            if curl -sf http://localhost:3001/ping; then exit 0; fi
+            sleep 2
+          done
+          echo "booker not ready"
+          exit 1
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Install deps
+        run: pip install -r requirements.txt
+
+      - name: Run pytest
+        run: pytest --html=reports/report.html --self-contained-html
+
+      - name: Upload HTML report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: pytest-html
+          path: reports/report.html
