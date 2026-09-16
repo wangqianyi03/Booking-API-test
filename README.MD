@@ -78,3 +78,9 @@ allure serve reports/allure-results
 | TC-NG-02 | 缺少必填字段创建 | 预订负向 | P2 | 服务可用 | 1. POST `/booking` 只传 firstname | `{"firstname":"Incomplete"}` | 500（服务未校验，已知缺陷） |
 | TC-NG-03 | 删除不存在的预订 | 预订负向 | P2 | 已登录 | 1. DELETE `/booking/999999` | id=999999 | 405（官方实现，非 404） |
 
+## 4. CI
+
+push 到 `main` 或开 Pull Request 时，GitHub Actions 会起 Docker 中的 Restful Booker 并跑 pytest。
+
+仓库 Settings → Secrets 需配置 `AUTH_USERNAME`、`AUTH_PASSWORD`（与 `.env.example` 相同）。
+报告在对应 run 的 Artifacts 里，文件名 `pytest-html`。
