@@ -37,7 +37,6 @@ def booking_api(http_client: HttpClient) -> BookingAPI:
 
 @pytest.fixture(scope="session", autouse=True)
 def login(http_client: HttpClient, auth_api: AuthAPI):
-    """整场测试登录一次，token 只存在 HttpClient 上。"""
     response = auth_api.create_token(settings.username, settings.password)
     token = response.json().get("token")
     if not token:
@@ -53,7 +52,6 @@ def booking_payload() -> dict:
 
 @pytest.fixture
 def created_booking(booking_api: BookingAPI, booking_payload: dict) -> dict:
-    """创建一条预订，测试结束后尝试删除，避免污染环境。"""
     response = booking_api.create(booking_payload)
     assert response.status_code == 200, response.text
     booking_id = response.json()["bookingid"]
